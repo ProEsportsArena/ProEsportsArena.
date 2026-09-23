@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "255585781293",
+    "project_id": "proespotrsarena",
+    "storage_bucket": "proespotrsarena.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:255585781293:android:d44a68d942996c3507daa4",
+        "android_client_info": {
+          "package_name": "com.example.esports_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOBjxABsB7GaWxKm7qoPopazchB-JJJlM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
