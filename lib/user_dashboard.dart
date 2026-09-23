@@ -16,8 +16,18 @@ class UserDashboard extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ProEsportsArena Dashboard'),
-        backgroundColor: Colors.deepPurple,
+        title: const Text(
+          'ProEsportsArena Dashboard',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+            letterSpacing: 0.5,
+          ),
+        ),
+        backgroundColor: Colors.deepPurple.shade900,
+        elevation: 4,
+        iconTheme: const IconThemeData(color: Colors.white),
         actions: [
           IconButton(
             icon: const Icon(Icons.logout, color: Colors.white),
@@ -270,7 +280,41 @@ class UserDashboard extends StatelessWidget {
                 ),
                 const SizedBox(height: 15),
 
-                // 6. Help & Support Card
+                // 6. Top Players Leaderboard Card
+                Card(
+                  elevation: 3,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          '🔥 Top Players Leaderboard',
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.deepPurple),
+                        ),
+                        const SizedBox(height: 12),
+                        ListTile(
+                          contentPadding: EdgeInsets.zero,
+                          leading: const CircleAvatar(backgroundColor: Colors.amber, child: Text('1', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+                          title: const Text('Pro_Gamer_99', style: TextStyle(fontWeight: FontWeight.bold)),
+                          subtitle: const Text('Total Winnings: ₹2,500'),
+                          trailing: const Text('👑', style: TextStyle(fontSize: 20)),
+                        ),
+                        const Divider(height: 12),
+                        ListTile(
+                          contentPadding: EdgeInsets.zero,
+                          leading: const CircleAvatar(backgroundColor: Colors.grey, child: Text('2', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold))),
+                          title: const Text('Shadow_Sniper', style: TextStyle(fontWeight: FontWeight.bold)),
+                          subtitle: const Text('Total Winnings: ₹1,800'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 15),
+
+                // 7. Help & Support Card
                 Card(
                   elevation: 3,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -302,7 +346,7 @@ class UserDashboard extends StatelessWidget {
                   ),
                 ),
 
-                // 7. Admin Panel Button (Visible ONLY to Admin Email)
+                // 8. Admin Panel Button (Visible ONLY to Admin Email)
                 if (isAdmin) ...[
                   const SizedBox(height: 25),
                   SizedBox(

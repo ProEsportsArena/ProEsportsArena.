@@ -147,25 +147,31 @@ class _TournamentsScreenState extends State<TournamentsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final currentUserId = FirebaseAuth.instance.currentUser?.uid;
+    final user = FirebaseAuth.instance.currentUser;
+    final currentUserId = user?.uid;
+    
+    // Admin Check
+    bool isAdmin = (user?.email == 'amit839026@gmail.com');
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Tournaments & Room Details'),
         backgroundColor: Colors.deepPurple,
         actions: [
-          IconButton(
-            icon: const Icon(Icons.admin_panel_settings, color: Colors.amber),
-            tooltip: 'Admin Panel',
-            onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const AdminPanelScreen()));
-            },
-          ),
+          // Yeh icon ab sirf Admin ko hi dikhega
+          if (isAdmin)
+            IconButton(
+              icon: const Icon(Icons.admin_panel_settings, color: Colors.amber),
+              tooltip: 'Admin Panel',
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const AdminPanelScreen()));
+              },
+            ),
         ],
       ),
       body: Column(
         children: [
-          // ⚠️ Strict Warning Notice Banner Added Here
+          // ⚠️ Strict Warning Notice Banner
           Container(
             padding: const EdgeInsets.all(12),
             margin: const EdgeInsets.all(12),
@@ -445,7 +451,7 @@ class _AdminPanelScreenState extends State<AdminPanelScreen> {
                         title: Text(data['title'] ?? 'Tournament'),
                         subtitle: Text('Game: ${data['game']} | Room ID: ${data['roomId']}'),
                         trailing: IconButton(
-                          icon: const Icon(Icons.edit, color: Colors.deepPurple),
+                          icon: const Icon(Icons.edit, color: Colors.deepPurple), // यहाँ space ठीक कर दिया गया है
                           onPressed: () => _showUpdateRoomDialog(docId, data['roomId'] ?? '', data['roomPassword'] ?? ''),
                         ),
                       ),

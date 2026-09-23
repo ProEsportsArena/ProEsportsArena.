@@ -347,7 +347,15 @@ class _WalletReferralScreenState extends State<WalletReferralScreen> {
 
           var userData = snapshot.data!.data() as Map<String, dynamic>;
           double walletBalance = (userData['walletBalance'] ?? 0.0).toDouble();
-          String myReferralCode = userData['referralCode'] ?? 'N/A';
+          
+          // Fallback logic taaki "NA" ya blank na aaye
+          String myReferralCode = userData['referralCode'] ?? '';
+          if (myReferralCode.isEmpty || myReferralCode == 'N/A' || myReferralCode == 'NA') {
+            myReferralCode = currentUser != null && currentUser!.uid.length >= 6
+                ? 'REF${currentUser!.uid.substring(0, 6).toUpperCase()}'
+                : 'ESPORTS123';
+          }
+
           String? referredBy = userData['referredBy'];
 
           return SingleChildScrollView(

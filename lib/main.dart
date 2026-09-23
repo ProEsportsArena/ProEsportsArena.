@@ -33,7 +33,25 @@ class MyApp extends StatelessWidget {
       title: 'ProEsportsArena',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.deepPurple),
-      home: const LoginScreen(),
+      // यहाँ Session Persistence चेक किया जा रहा है
+      home: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.active) {
+            User? user = snapshot.data;
+            if (user == null) {
+              return const LoginScreen();
+            } else {
+              return const UserDashboard();
+            }
+          }
+          return const Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(color: Colors.deepPurple),
+            ),
+          );
+        },
+      ),
     );
   }
 }
@@ -266,7 +284,6 @@ class UserDashboard extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            // अब फोटो या एडिट आइकॉन पर क्लिक करते ही सीधे गैलरी खुलेगी
                             GestureDetector(
                               onTap: () => _pickImageFromGallery(context),
                               child: Stack(
@@ -461,7 +478,7 @@ class UserDashboard extends StatelessWidget {
                   ],
                 ),
 
-                // 3. Admin Panel Button
+                // 3. Admin Panel Button (Already restricted to admin email)
                 if (isAdmin) ...[
                   const SizedBox(height: 25),
                   SizedBox(
